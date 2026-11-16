@@ -1,0 +1,458 @@
+{
+  "info": {
+    "name": "SOA Services - Complete Test Suite",
+    "_postman_id": "soa-test-collection",
+    "description": "Collection để test AuthService, ProductService và OrderService",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1. Authentication",
+      "item": [
+        {
+          "name": "Login - Get JWT Token",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var jsonData = pm.response.json();",
+                  "pm.environment.set(\"jwt_token\", jsonData.token);",
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "pm.test(\"Token is present\", function () {",
+                  "    pm.expect(jsonData.token).to.exist;",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"admin\",\n  \"password\": \"admin123\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:9000/auth/login",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "9000",
+              "path": ["auth", "login"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "2. Product Service",
+      "item": [
+        {
+          "name": "Get All Products",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:9001/products",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "9001",
+              "path": ["products"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Product by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:9001/products/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "9001",
+              "path": ["products", "1"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Product",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Test Product\",\n  \"description\": \"This is a test product\",\n  \"price\": 99.99,\n  \"stock\": 100\n}"
+            },
+            "url": {
+              "raw": "http://localhost:9001/products",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "9001",
+              "path": ["products"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "3. Order Service - Orders",
+      "item": [
+        {
+          "name": "Get All Orders",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:9002/orders",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "9002",
+              "path": ["orders"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Order by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:9002/orders/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "9002",
+              "path": ["orders", "1"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Order",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var jsonData = pm.response.json();",
+                  "if (jsonData.id) {",
+                  "    pm.environment.set(\"order_id\", jsonData.id);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"customer_name\": \"Nguyen Van A\",\n  \"customer_email\": \"nguyenvana@example.com\",\n  \"status\": \"pending\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:9002/orders",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "9002",
+              "path": ["orders"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Order Status",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"completed\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:9002/orders/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "9002",
+              "path": ["orders", "1"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Order",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:9002/orders/3",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "9002",
+              "path": ["orders", "3"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "4. Order Service - Order Items",
+      "item": [
+        {
+          "name": "Get All Order Items",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:9002/order_items",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "9002",
+              "path": ["order_items"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Order Item by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:9002/order_items/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "9002",
+              "path": ["order_items", "1"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Add Product to Order (Auto Stock Check)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"order_id\": 1,\n  \"product_id\": 1,\n  \"quantity\": 2\n}"
+            },
+            "url": {
+              "raw": "http://localhost:9002/order_items",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "9002",
+              "path": ["order_items"]
+            },
+            "description": "Tự động kiểm tra tồn kho từ ProductService"
+          },
+          "response": []
+        },
+        {
+          "name": "Test Out of Stock (Should Fail)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"order_id\": 1,\n  \"product_id\": 1,\n  \"quantity\": 9999\n}"
+            },
+            "url": {
+              "raw": "http://localhost:9002/order_items",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "9002",
+              "path": ["order_items"]
+            },
+            "description": "Test với số lượng lớn hơn tồn kho - sẽ trả về lỗi"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Order Item Quantity",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"quantity\": 5\n}"
+            },
+            "url": {
+              "raw": "http://localhost:9002/order_items/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "9002",
+              "path": ["order_items", "1"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Order Item",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:9002/order_items/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "9002",
+              "path": ["order_items", "1"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "5. Error Cases",
+      "item": [
+        {
+          "name": "Test Without Token (Should Fail)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:9002/orders",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "9002",
+              "path": ["orders"]
+            },
+            "description": "Test API without JWT token - should return 401"
+          },
+          "response": []
+        },
+        {
+          "name": "Test Invalid Token (Should Fail)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer invalid_token_here"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:9002/orders",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "9002",
+              "path": ["orders"]
+            },
+            "description": "Test API with invalid JWT token - should return 401"
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

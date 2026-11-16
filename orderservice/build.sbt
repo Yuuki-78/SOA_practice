@@ -1,0 +1,16 @@
+name := """orderservice"""
+organization := "com.example"
+
+version := "1.0-SNAPSHOT"
+
+lazy val root = (project in file(".")).enablePlugins(PlayJava)
+
+scalaVersion := "2.13.18"
+
+libraryDependencies ++= Seq(
+  guice,
+  javaJdbc,
+  javaWs,
+  "com.microsoft.sqlserver" % "mssql-jdbc" % "12.6.1.jre11",
+  "com.auth0" % "java-jwt" % "4.4.0"
+)

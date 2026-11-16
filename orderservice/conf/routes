@@ -1,0 +1,20 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Order Management Routes
+GET     /orders                     controllers.OrderController.getAllOrders(request: Request)
+GET     /orders/:id                 controllers.OrderController.getOrderById(request: Request, id: Integer)
+POST    /orders                     controllers.OrderController.createOrder(request: Request)
+PUT     /orders/:id                 controllers.OrderController.updateOrder(request: Request, id: Integer)
+DELETE  /orders/:id                 controllers.OrderController.deleteOrder(request: Request, id: Integer)
+
+# Order Items Routes
+GET     /order_items                controllers.OrderItemController.getAllOrderItems(request: Request)
+GET     /order_items/:id            controllers.OrderItemController.getOrderItemById(request: Request, id: Integer)
+POST    /order_items                controllers.OrderItemController.createOrderItem(request: Request)
+PUT     /order_items/:id            controllers.OrderItemController.updateOrderItem(request: Request, id: Integer)
+DELETE  /order_items/:id            controllers.OrderItemController.deleteOrderItem(request: Request, id: Integer)
+
+# Home
+GET     /                           controllers.HomeController.index(request: Request)

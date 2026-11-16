@@ -1,0 +1,23 @@
+@()
+
+@main("Order Management Service") {
+  <h1>Welcome to Order Management Service</h1>
+  <p>Service đang chạy trên port 9002</p>
+  
+  <h2>Available APIs:</h2>
+  <ul>
+    <li>GET /orders - Lấy danh sách tất cả đơn hàng</li>
+    <li>GET /orders/:id - Lấy thông tin chi tiết một đơn hàng</li>
+    <li>POST /orders - Tạo đơn hàng mới</li>
+    <li>PUT /orders/:id - Cập nhật trạng thái đơn hàng</li>
+    <li>DELETE /orders/:id - Xóa một đơn hàng</li>
+    <hr>
+    <li>GET /order_items - Lấy danh sách tất cả mặt hàng</li>
+    <li>GET /order_items/:id - Lấy thông tin chi tiết một mặt hàng</li>
+    <li>POST /order_items - Tạo mặt hàng mới (kiểm tra tồn kho)</li>
+    <li>PUT /order_items/:id - Cập nhật mặt hàng</li>
+    <li>DELETE /order_items/:id - Xóa một mặt hàng</li>
+  </ul>
+  
+  <p><strong>Lưu ý:</strong> Tất cả các API yêu cầu JWT token trong header Authorization</p>
+}
