@@ -1,0 +1,34 @@
+@()
+
+@main("Reporting Service") {
+  <h1>Welcome to Reporting Service</h1>
+  <p>Service đang chạy trên port 9003</p>
+  
+  <h2>Available APIs:</h2>
+  
+  <h3>Order Reports:</h3>
+  <ul>
+    <li>GET /reports/orders - Lấy danh sách tất cả báo cáo đơn hàng</li>
+    <li>GET /reports/orders/:id - Lấy chi tiết báo cáo đơn hàng</li>
+    <li>POST /reports/orders - Tạo báo cáo đơn hàng mới (tự động tính toán từ OrderService)</li>
+    <li>DELETE /reports/orders/:id - Xóa báo cáo đơn hàng</li>
+  </ul>
+  
+  <h3>Product Reports:</h3>
+  <ul>
+    <li>GET /reports/products - Lấy danh sách tất cả báo cáo sản phẩm</li>
+    <li>GET /reports/products/:id - Lấy chi tiết báo cáo sản phẩm</li>
+    <li>POST /reports/products - Tạo báo cáo sản phẩm thủ công</li>
+    <li>DELETE /reports/products/:id - Xóa báo cáo sản phẩm</li>
+  </ul>
+  
+  <h2>Tính năng:</h2>
+  <ul>
+    <li>✓ Tự động tính toán doanh thu, chi phí, lợi nhuận</li>
+    <li>✓ Tích hợp với ProductService và OrderService</li>
+    <li>✓ Báo cáo theo đơn hàng và sản phẩm</li>
+    <li>✓ JWT Authentication</li>
+  </ul>
+  
+  <p><strong>Lưu ý:</strong> Tất cả các API yêu cầu JWT token trong header Authorization</p>
+}

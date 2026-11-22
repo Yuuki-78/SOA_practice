@@ -12,6 +12,9 @@ sqlcmd -S localhost -U sa -P 123456 -i productservice\conf\sql\soa_product.sql
 
 -- Tạo database cho OrderService
 sqlcmd -S localhost -U sa -P 123456 -i orderservice\conf\sql\soa_order.sql
+
+-- Tạo database cho ReportingService
+sqlcmd -S localhost -U sa -P 123456 -i reportingservice\conf\sql\soa_reporting.sql
 ```
 
 Hoặc copy-paste SQL scripts vào SQL Server Management Studio:
@@ -30,10 +33,11 @@ start-all-services.bat
 ```
 
 Script sẽ:
-- ✅ Mở 3 terminal riêng biệt
+- ✅ Mở 4 terminal riêng biệt
 - ✅ Tự động start AuthService (port 9000)
 - ✅ Tự động start ProductService (port 9001)
 - ✅ Tự động start OrderService (port 9002)
+- ✅ Tự động start ReportingService (port 9003)
 
 **Đợi 30-60 giây** cho các service khởi động hoàn toàn.
 
@@ -53,6 +57,10 @@ sbt run
 # Terminal 3
 cd d:\SOA_pratice\orderservice
 sbt run
+
+# Terminal 4
+cd d:\SOA_pratice\reportingservice
+sbt run
 ```
 
 ---
@@ -63,6 +71,7 @@ Mở browser và truy cập:
 - http://localhost:9000 - AuthService ✓
 - http://localhost:9001 - ProductService ✓
 - http://localhost:9002 - OrderService ✓
+- http://localhost:9003 - ReportingService ✓
 
 ---
 

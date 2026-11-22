@@ -1,0 +1,18 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Product Reports
+GET     /reports/products           controllers.ProductReportController.getAllProductReports(request: Request)
+GET     /reports/products/:id       controllers.ProductReportController.getProductReportById(request: Request, id: Integer)
+POST    /reports/products           controllers.ProductReportController.createProductReport(request: Request)
+DELETE  /reports/products/:id       controllers.ProductReportController.deleteProductReport(request: Request, id: Integer)
+
+# Order Reports
+GET     /reports/orders             controllers.OrderReportController.getAllOrderReports(request: Request)
+GET     /reports/orders/:id         controllers.OrderReportController.getOrderReportById(request: Request, id: Integer)
+POST    /reports/orders             controllers.OrderReportController.createOrderReport(request: Request)
+DELETE  /reports/orders/:id         controllers.OrderReportController.deleteOrderReport(request: Request, id: Integer)
+
+# Home
+GET     /                           controllers.HomeController.index(request: Request)

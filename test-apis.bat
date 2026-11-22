@@ -46,6 +46,15 @@ if %ERRORLEVEL% NEQ 0 (
     echo ✓ OrderService (port 9002) is running
 )
 
+curl -s http://localhost:9003 >nul 2>nul
+if %ERRORLEVEL% NEQ 0 (
+    echo ❌ ReportingService (port 9003) is NOT running!
+    pause
+    exit /b 1
+) else (
+    echo ✓ ReportingService (port 9003) is running
+)
+
 echo.
 echo ========================================
 echo [Step 2] Login to get JWT Token
@@ -139,5 +148,45 @@ echo ========================================
 echo.
 echo You can now use Postman or any REST client to test further.
 echo Token for manual testing: !TOKEN!
+echo.
+pause
+
+echo ========================================
+echo [Step 7] Test ReportingService - Create Order Report
+echo ========================================
+echo.
+
+echo POST http://localhost:9003/reports/orders
+echo Body: {"order_id":1}
+echo Note: This will automatically calculate revenue, cost, profit
+curl -s -X POST http://localhost:9003/reports/orders -H "Authorization: Bearer !TOKEN!" -H "Content-Type: application/json" -d "{\"order_id\":1}"
+echo.
+echo.
+timeout /t 2 /nobreak >nul
+
+echo ========================================
+echo [Step 8] Test Get Order Reports
+echo ========================================
+echo.
+
+echo GET http://localhost:9003/reports/orders
+curl -s -X GET http://localhost:9003/reports/orders -H "Authorization: Bearer !TOKEN!" -H "Content-Type: application/json"
+echo.
+echo.
+timeout /t 2 /nobreak >nul
+
+echo ========================================
+echo [Step 9] Test Get Product Reports
+echo ========================================
+echo.
+
+echo GET http://localhost:9003/reports/products
+curl -s -X GET http://localhost:9003/reports/products -H "Authorization: Bearer !TOKEN!" -H "Content-Type: application/json"
+echo.
+echo.
+
+echo ========================================
+echo ✓ All tests completed - Including ReportingService!
+echo ========================================
 echo.
 pause

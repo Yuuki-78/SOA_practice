@@ -413,7 +413,141 @@
       ]
     },
     {
-      "name": "5. Error Cases",
+      "name": "5. Reporting Service",
+      "item": [
+        {
+          "name": "Create Order Report (Auto Calculate)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"order_id\": 1\n}"
+            },
+            "url": {
+              "raw": "http://localhost:9003/reports/orders",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "9003",
+              "path": ["reports", "orders"]
+            },
+            "description": "Tự động tính toán doanh thu, chi phí, lợi nhuận từ OrderService và ProductService"
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Order Reports",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:9003/reports/orders",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "9003",
+              "path": ["reports", "orders"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Order Report by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:9003/reports/orders/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "9003",
+              "path": ["reports", "orders", "1"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Product Reports",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:9003/reports/products",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "9003",
+              "path": ["reports", "products"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Product Report by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:9003/reports/products/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "9003",
+              "path": ["reports", "products", "1"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Order Report",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:9003/reports/orders/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "9003",
+              "path": ["reports", "orders", "1"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "6. Error Cases",
       "item": [
         {
           "name": "Test Without Token (Should Fail)",
